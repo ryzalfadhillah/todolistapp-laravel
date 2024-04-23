@@ -9,17 +9,13 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
     </script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.7/dist/sweetalert2.all.min.js"></script>
 </head>
 
 <body>
     <div class="container col-xl-10 col-xxl-8 px-4 py-5">
-        @if (isset($error))
-            <div class="row">
-                <div class="alert alert-danger" role="alert">
-                    {{ $error }}
-                </div>
-            </div>
-        @endif
         <div class="row align-items-center g-lg-5 py-5">
             <div class="col-lg-7 text-center text-lg-start">
                 <h1 class="display-4 fw-bold lh-1 mb-3">Login</h1>
@@ -43,6 +39,26 @@
             </div>
         </div>
     </div>
+
+    <script>
+        var success = '{{ Session::has('success') }}';
+        if (success) {
+            Swal.fire({
+                title: "Great!",
+                text: "{{ Session::get('success') }}",
+                icon: "success"
+            });
+        }
+
+        var error = '{{ Session::has('error') }}';
+        if (error) {
+            Swal.fire({
+                title: "Great!",
+                text: "{{ Session::get('error') }}",
+                icon: "error"
+            });
+        }
+    </script>
 </body>
 
 </html>

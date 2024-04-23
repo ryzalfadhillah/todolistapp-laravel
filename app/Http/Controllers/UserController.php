@@ -28,20 +28,24 @@ class UserController extends Controller
         $password = $request->input('password');
 
         if (empty($user) || empty($password)) {
-            return response()->view('user.login', ['title' => 'Login', 'error' => 'User and password are required']);
+            // return response()->view('user.login', ['title' => 'Login', 'error' => 'User and password are required']);
+            return Redirect('/login')->with('error', 'User and password are required');
         }
 
         if ($this->userService->login($user, $password)) {
             $request->session()->put('user', $user);
-            return redirect('/');
+            // return redirect('/');
+            return Redirect('/todolist')->with('success', 'Login successfully');
         }
 
-        return response()->view('user.login', ['title' => 'Login', 'error' => 'Invalid user or password']);
+        // return response()->view('user.login', ['title' => 'Login', 'error' => 'Invalid user or password']);
+        return Redirect('/login')->with('error', 'Invalid user or password');
     }
 
     public function doLogout(Request $request): RedirectResponse
     {
         $request->session()->forget('user');
-        return redirect('/');
+        // return redirect('/');
+        return Redirect('/login')->with('success', 'Logout successfully');
     }
 }
