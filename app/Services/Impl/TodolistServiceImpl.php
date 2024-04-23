@@ -23,4 +23,18 @@ class TodolistServiceImpl implements TodolistService
     {
         return Session::get('todolists', []);
     }
+
+    public function deleteTodo(string $id)
+    {
+        $todolists = Session::get('todolists', []);
+
+        foreach ($todolists as $todo => $todolist) {
+            if ($todolist['id'] === $id) {
+                unset($todolists[$todo]);
+                break;
+            }
+        }
+
+        Session::put('todolists', $todolists);
+    }
 }
